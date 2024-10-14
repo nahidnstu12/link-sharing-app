@@ -1,0 +1,54 @@
+"use client";
+
+import DisplayPreviewProfile from "@/@core/components/DisplayPreviewProfile";
+import Error from "@/@core/components/Error";
+import LinkCard from "@/@core/components/LinkCard";
+import Loading from "@/@core/components/Loading";
+import PreviewBanner from "@/@core/components/PreviewBanner";
+import withAuth from "@/@core/components/WithAuth";
+
+const Preview = (): JSX.Element => {
+  const link = [];
+  const profile = {};
+  const loading = false;
+  const error = null;
+
+  if (loading) return <Loading />;
+  if (error) return <Error />;
+
+  const containerClass =
+    link && link.length > 5
+      ? "sm:no-scrollbar sm:h-[360px] sm:overflow-y-auto "
+      : "h-auto";
+
+  return (
+    <main className="relative">
+      <PreviewBanner />
+      <section className="relative">
+        <div className="hidden sm:block absolute top-[-120px] left-0 z-10 bg-dark-purple w-full h-[357px] rounded-b-3xl"></div>
+        <div className="relative z-0 bg-white sm:bg-background-white w-screen h-screen"></div>
+        <div className="absolute z-20 top-0 left-0 w-full h-full">
+          <div className="flex justify-center">
+            <div className="w-full sm:w-[390px] h-full sm:h-[710px] bg-white sm:rounded-3xl sm:shadow-custom-gray sm:mt-10">
+              <div className=" flex flex-col items-center w-full h-full p-12 gap-10">
+                <div className="w-[200px] h-[200px]">
+                  <DisplayPreviewProfile profile={profile} />
+                </div>
+                <div className={`${containerClass} w-full`}>
+                  <LinkCard />
+                </div>
+              </div>
+              {link && link.length > 5 && (
+                <span className="absolute z-99 bottom-[2%] left-1/2 text-sm transform -translate-x-1/2 hidden sm:block">
+                  Scroll up and down
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>  
+  );
+};
+
+export default withAuth(Preview);
