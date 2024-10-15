@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import React from "react";
 import IconLinkSvg from "@/@core/assets/icon-link.tsx";
 import IconProfilSvg from "@/@core/assets/icon-profile-details-header.tsx";
-import { IconWrapperType } from "../types";
+import { IconWrapperType } from "@/@core/types";
+import Link from "next/link";
+import React from "react";
 
 /**
  * NavWrapper renders a navigation link with an icon and label.

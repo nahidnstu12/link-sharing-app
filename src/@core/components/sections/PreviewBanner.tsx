@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "./Button";
-import PreviewBtn from "./PreviewBtn";
+import Button from "../common/Button";
+import PreviewBtn from "../common/PreviewBtn";
 
 /**
  * PreviewBanner component renders a banner with a back button and share button.

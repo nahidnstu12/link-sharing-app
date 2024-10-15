@@ -1,8 +1,8 @@
 "use client";
 
-import Button from "./Button";
-import ProfileDetailsWrapper from "./ProfileDetailsWrapper";
-import ProfilePictureWrapper from "./ProfilePictureWrapper";
+import Button from "../common/Button";
+import ProfileDetailsWrapper from "../wrapper/ProfileDetailsWrapper";
+import ProfilePictureWrapper from "../wrapper/ProfilePictureWrapper";
 
 /**
  * ProfilContainer component renders the profile details form and handles form submission.

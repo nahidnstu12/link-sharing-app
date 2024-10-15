@@ -1,8 +1,9 @@
 "use client";
-import MainLayout from "@/@core/components/MainLayout";
-import MobileContainer from "@/@core/components/MobileContainer";
-import SettingContainer from "@/@core/components/SettingContainer";
-import withAuth from "@/@core/components/WithAuth";
+import withAuth from "@/@core/components/common/WithAuth";
+import MainLayout from "@/@core/components/sections/MainLayout";
+import MobileContainer from "@/@core/components/sections/MobileContainer";
+import SettingContainer from "@/@core/components/sections/SettingContainer";
+
 import useIsAuth from "@/@core/hook/useAuth";
 
 import React from "react";

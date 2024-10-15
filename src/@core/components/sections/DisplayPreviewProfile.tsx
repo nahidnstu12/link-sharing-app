@@ -1,8 +1,8 @@
 "use client";
+import { DisplayProfileProps } from "@/@core/types";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { DisplayProfileProps } from "../types";
 
 /**
  * DisplayPreviewProfile renders the user's profile image, name, and email.

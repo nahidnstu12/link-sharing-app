@@ -1,15 +1,16 @@
 "use client";
 
-import DisplayPreviewProfile from "@/@core/components/DisplayPreviewProfile";
-import Error from "@/@core/components/Error";
-import LinkCard from "@/@core/components/LinkCard";
-import Loading from "@/@core/components/Loading";
-import PreviewBanner from "@/@core/components/PreviewBanner";
-import withAuth from "@/@core/components/WithAuth";
+import Error from "@/@core/components/common/Error";
+import LinkCard from "@/@core/components/common/LinkCard";
+import Loading from "@/@core/components/common/Loading";
+import withAuth from "@/@core/components/common/WithAuth";
+import DisplayPreviewProfile from "@/@core/components/sections/DisplayPreviewProfile";
+import PreviewBanner from "@/@core/components/sections/PreviewBanner";
+import { useLinks } from "@/@core/hook/useLinks";
 
 const Preview = (): JSX.Element => {
-  const link = [];
-  const profile = {};
+  const { links } = useLinks();
+
   const loading = false;
   const error = null;
 
@@ -17,7 +18,7 @@ const Preview = (): JSX.Element => {
   if (error) return <Error />;
 
   const containerClass =
-    link && link.length > 5
+    links && links.length > 5
       ? "sm:no-scrollbar sm:h-[360px] sm:overflow-y-auto "
       : "h-auto";
 
@@ -32,13 +33,13 @@ const Preview = (): JSX.Element => {
             <div className="w-full sm:w-[390px] h-full sm:h-[710px] bg-white sm:rounded-3xl sm:shadow-custom-gray sm:mt-10">
               <div className=" flex flex-col items-center w-full h-full p-12 gap-10">
                 <div className="w-[200px] h-[200px]">
-                  <DisplayPreviewProfile profile={profile} />
+                  <DisplayPreviewProfile profile={{}} />
                 </div>
                 <div className={`${containerClass} w-full`}>
-                  <LinkCard />
+                  <LinkCard links={links} />
                 </div>
               </div>
-              {link && link.length > 5 && (
+              {links && links.length > 5 && (
                 <span className="absolute z-99 bottom-[2%] left-1/2 text-sm transform -translate-x-1/2 hidden sm:block">
                   Scroll up and down
                 </span>
@@ -47,7 +48,7 @@ const Preview = (): JSX.Element => {
           </div>
         </div>
       </section>
-    </main>  
+    </main>
   );
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import ToastProvider from "@/@core/common/toast-provider";
+import ToastProvider from "@/@core/components/common/toast-provider";
 import { UserProvider } from "@/@core/context/user.context";
 import React from "react";
 import "./globals.css";

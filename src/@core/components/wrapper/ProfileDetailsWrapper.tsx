@@ -1,8 +1,8 @@
 "use client";
+import { ProfileDetailsWrapperProps } from "@/@core/types";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { ProfileDetailsWrapperProps } from "../types";
-import Input from "./Input";
+import Input from "../common/Input";
 
 /**
  * ProfileDetailsWrapper renders input fields for editing user profile details.

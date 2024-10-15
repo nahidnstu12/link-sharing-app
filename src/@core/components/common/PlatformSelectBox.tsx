@@ -1,43 +1,25 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { platforms } from "../../helpers/utils";
 
-interface PlaformSelectBoxProps {
-  initialState: string;
-  zIndex?: number;
-  linkId: string;
+interface PlatformSelectBoxProps {
+  platformValue: string;
+  setValue: (name: string, value: any) => void;
 }
 
-const platforms = [
-  "Github",
-  "Frontend Mentor",
-  "Twitter",
-  "LinkedIn",
-  "YouTube",
-  "Facebook",
-  "Twitch",
-  "Dev.to",
-  "Codewars",
-  "Codepen",
-  "freeCodeCamp",
-  "GitLab",
-  "Hashnode",
-  "Stack Overflow",
-];
-
-const PlaformSelectBox: React.FC<PlaformSelectBoxProps> = ({
-  initialState,
-  zIndex,
-  linkId,
+const PlatformSelectBox: React.FC<PlatformSelectBoxProps> = ({
+  platformValue,
+  setValue,
 }) => {
+  console.log("platformValue", platformValue);
+
   const formatPlatformName = (platform: string) =>
     platform.toLowerCase().replace(" ", "").replace(".", "");
 
-  let initialPlatform = formatPlatformName(initialState);
+  let initialPlatform = platformValue && formatPlatformName(platformValue);
 
-  const [platform, setPlatform] = useState<string>(
-    initialState ? initialState : "Github"
-  );
+  const [platform, setPlatform] = useState<string>(platformValue || "Github");
   const [platformIcon, setPlatformIcon] = useState<string>(
-    initialState
+    platformValue
       ? `/images/icon-${initialPlatform}.svg`
       : "/images/icon-github.svg"
   );
@@ -55,6 +37,7 @@ const PlaformSelectBox: React.FC<PlaformSelectBoxProps> = ({
       setPlatform(dataOption);
       const formattedOption = formatPlatformName(dataOption);
       setPlatformIcon(`/images/icon-${formattedOption}.svg`);
+      setValue("platform", dataOption);
     }
   };
 
@@ -90,6 +73,14 @@ const PlaformSelectBox: React.FC<PlaformSelectBoxProps> = ({
   }, []);
 
   useEffect(() => {
+    if (platformValue) {
+      setPlatform(platformValue);
+      const formattedOption = formatPlatformName(platformValue);
+      setPlatformIcon(`/images/icon-${formattedOption}.svg`);
+    }
+  }, [platformValue]);
+
+  useEffect(() => {
     if (popupRef.current) {
       popupRef.current.style.display = open ? "block" : "none";
     }
@@ -106,7 +97,6 @@ const PlaformSelectBox: React.FC<PlaformSelectBoxProps> = ({
       <div
         className="flex items-center gap-3 px-4 py-2 w-full h-12 border border-gray-300 rounded-lg bg-white cursor-pointer relative hover:border-purple-600 hover:shadow-[0px_0px_32px_0px_rgba(99,60,255,0.25)]"
         onClick={handlePopup}
-        style={{ zIndex }}
       >
         <img src={platformIcon} className="w-4 h-4" alt={`${platform} icon`} />
         {platform}
@@ -120,7 +110,7 @@ const PlaformSelectBox: React.FC<PlaformSelectBoxProps> = ({
           alt="chevron icon"
         />
         <div
-          className="absolute top-16 left-0 w-full bg-white border border-gray-300 rounded-lg shadow-[0px_0px_32px_0px_rgba(0,0,0,0.10)] p-4 hidden"
+          className="absolute top-16 left-0 w-full bg-white border border-gray-300 rounded-lg shadow-[0px_0px_32px_0px_rgba(0,0,0,0.10)] p-4 hidden z-10"
           onClick={handleOption}
           ref={popupRef}
         >
@@ -131,4 +121,4 @@ const PlaformSelectBox: React.FC<PlaformSelectBoxProps> = ({
   );
 };
 
-export default PlaformSelectBox;
+export default PlatformSelectBox;

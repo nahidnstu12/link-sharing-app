@@ -1,11 +1,11 @@
 "use client";
 
-import Error from "@/@core/components/Error";
-import Loading from "@/@core/components/Loading";
-import MainLayout from "@/@core/components/MainLayout";
-import MobileContainer from "@/@core/components/MobileContainer";
-import ProfilContainer from "@/@core/components/ProfilContainer";
-import withAuth from "@/@core/components/WithAuth";
+import Error from "@/@core/components/common/Error";
+import Loading from "@/@core/components/common/Loading";
+import withAuth from "@/@core/components/common/WithAuth";
+import MainLayout from "@/@core/components/sections/MainLayout";
+import MobileContainer from "@/@core/components/sections/MobileContainer";
+import ProfilContainer from "@/@core/components/sections/ProfilContainer";
 
 const Profil = (): JSX.Element => {
   const loading = false;

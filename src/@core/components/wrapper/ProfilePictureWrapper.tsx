@@ -1,9 +1,9 @@
 "use client";
 
 import IconUploadImage from "@/@core/assets/icon-upload-image.tsx";
+import { ProfilePictureWrapperProps } from "@/@core/types";
 import Image from "next/image";
 import React, { useCallback, useRef } from "react";
-import { ProfilePictureWrapperProps } from "../types";
 
 const MAX_IMAGE_DIMENSION = 1024;
 const SUPPORTED_FORMATS = ["image/jpeg", "image/png"];

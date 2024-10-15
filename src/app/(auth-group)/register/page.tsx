@@ -3,13 +3,13 @@
 
 import Link from "next/link";
 
-import Button from "@/@core/components/Button";
-import Input from "@/@core/components/Input";
+import Button from "@/@core/components/common/Button";
+import Input from "@/@core/components/common/Input";
 import { apiPost } from "@/@core/helpers/common-api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, useForm } from "react-hook-form";
-import * as Yup from "yup";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
 // import IconLinkLarge from "@/@core/assets/logo-devlinks-large.svg";
 
 const validationSchema = Yup.object().shape({
@@ -30,7 +30,6 @@ const validationSchema = Yup.object().shape({
   password: Yup.string()
     .required("Password is required")
     .min(8, "Password must contain at least 8 characters"),
-
 });
 
 /**
@@ -119,7 +118,7 @@ const SignUp = (): JSX.Element => {
                 <p className="text-xs">
                   Password must contain at least 8 characters
                 </p>
-                <Button label={"Create a new account"} />
+                <Button label={"Create a new account"} type={"submit"} />
                 <p className="text-base px-[5%] sm:px-[10%] text-center ">
                   Already have an account?{" "}
                   <Link href="/login">

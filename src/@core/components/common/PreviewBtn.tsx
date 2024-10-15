@@ -1,9 +1,9 @@
 "use client";
 
+import IconPreview from "@/@core/assets/icon-preview-header.tsx";
 import Link from "next/link";
 import React from "react";
-import IconPreview from "@/@core/assets/icon-preview-header.tsx";
-import { PreviewBtnType } from "../types";
+import { PreviewBtnType } from "../../types";
 
 /**
  *  PreviewBtn component renders a button with a label and an optional onClick handler.

@@ -2,9 +2,9 @@ import { Schema, model, models } from "mongoose";
 
 const LinkSchema = new Schema(
   {
-    key: { type: "string", required: true },
-    label: { type: "string", required: true },
-    url: { type: "string", required: true },
+   
+    platform: { type: "string", required: true },
+    link: { type: "string", required: true },
     color: { type: "string", required: true },
     order_no: { type: "number", required: false },
     user_id: {

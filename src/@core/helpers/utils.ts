@@ -1,0 +1,48 @@
+export const platforms = [
+  "Github",
+  "Frontend Mentor",
+  "Twitter",
+  "LinkedIn",
+  "YouTube",
+  "Facebook",
+  "Twitch",
+  "Dev.to",
+  "Codewars",
+  "Codepen",
+  "freeCodeCamp",
+  "GitLab",
+  "Hashnode",
+  "Stack Overflow",
+];
+
+export const colorMap = {
+  "dark-purple": "bg-dark-purple",
+  "link-blue": "bg-link-blue",
+  "medium-red": "bg-medium-red",
+  "link-light-blue": "bg-link-light-blue",
+  "link-dark-blue": "bg-link-dark-blue",
+  "link-black": "bg-link-black",
+  "link-dark-red": "bg-link-dark-red",
+  "link-green": "bg-link-green",
+  "link-dark-orange": "bg-link-dark-orange",
+  "link-pink": "bg-link-pink",
+  "link-dark-gray": "bg-link-dark-gray",
+  "background-white": "bg-background-white",
+};
+
+export const platformColorMap: Record<string, string> = {
+  Github: colorMap["dark-purple"],
+  "Frontend Mentor": colorMap["background-white"],
+  Twitter: colorMap["link-light-blue"],
+  LinkedIn: colorMap["link-dark-blue"],
+  YouTube: colorMap["medium-red"],
+  Facebook: colorMap["link-blue"],
+  Twitch: colorMap["dark-purple"],
+  "Dev.to": colorMap["link-black"],
+  Codewars: colorMap["link-dark-red"],
+  Codepen: colorMap["link-dark-gray"],
+  freeCodeCamp: colorMap["link-green"],
+  GitLab: colorMap["link-dark-orange"],
+  Hashnode: colorMap["link-pink"],
+  "Stack Overflow": colorMap["link-dark-orange"],
+};

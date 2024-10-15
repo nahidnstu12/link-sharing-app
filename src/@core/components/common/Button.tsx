@@ -10,6 +10,7 @@ import { ButtonComponent } from "../types";
 const Button: React.FC<ButtonComponent> = ({
   label,
   onClick,
+  type = "button",
 }: ButtonComponent): JSX.Element => {
   const colorStyle =
     label === "+ Add new link"
@@ -18,7 +19,7 @@ const Button: React.FC<ButtonComponent> = ({
 
   return (
     <button
-      type="submit"
+      type={type}
       onClick={onClick}
       className={`${colorStyle} duration-500 ease-in-out font-semibold rounded-lg w-full h-[46px]`}
     >

@@ -3,14 +3,14 @@
 import Link from "next/link";
 
 // import IconLinkLarge from "../../assets/logo-devlinks-large.svg";
-import Button from "@/@core/components/Button";
-import Input from "@/@core/components/Input";
+import Input from "@/@core/components/common/Input";
 import { apiPost } from "@/@core/helpers/common-api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
+import Button from "@/@core/components/common/Button";
 
 /**
  * The Login component renders a login form where users can enter their email and password to access their account.
@@ -92,7 +92,7 @@ const Login = (): JSX.Element => {
                     />
                   </div>
                 </div>
-                <Button label={"Login"} />
+                <Button label={"Login"} type={"submit"} />
                 <p className="text-base px-[5%] sm:px-[10%] text-center ">
                   Don&apos;t have an account?{" "}
                   <Link href="/register">

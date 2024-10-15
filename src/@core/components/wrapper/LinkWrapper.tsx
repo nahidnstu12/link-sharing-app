@@ -4,31 +4,32 @@ import Image from "next/image";
 import React from "react";
 
 import { usePathname } from "next/navigation";
-import { LinkWrapperProps } from "../types";
+import { LinkWrapperProps } from "../../types";
 
 import Iconfrontendmentor from "@/@core/assets/icon-frontend.tsx";
 import Icongithub from "@/@core/assets/icon-github.tsx";
 
+import Iconcodepen from "@/@core/assets/icon-codepen.tsx";
+import Iconcodewars from "@/@core/assets/icon-codewars.tsx";
+import Icondevto from "@/@core/assets/icon-devto.tsx";
+import Iconfacebook from "@/@core/assets/icon-facebook.tsx";
+import Iconfreecodecamp from "@/@core/assets/icon-freecodecamp.tsx";
+import Icongitlab from "@/@core/assets/icon-gitlab.tsx";
+import Iconhashnode from "@/@core/assets/icon-hashnode.tsx";
+import Iconlinkedin from "@/@core/assets/icon-linkedin.tsx";
+import Icontwitch from "@/@core/assets/icon-twitch.tsx";
+import Icontwitter from "@/@core/assets/icon-twitter.tsx";
+import IconUploadImage from "@/@core/assets/icon-upload-image.tsx";
+import Iconyoutube from "@/@core/assets/icon-youtube.tsx";
 import { toast } from "react-toastify";
-// import Icontwitter from "../assets/icon-twitter.svg";
-// import Iconlinkedin from "../assets/icon-linkedin.svg";
-// import Iconyoutube from "../assets/icon-youtube.svg";
-// import Icontwitch from "../assets/icon-twitch.svg";
-// import Icondevto from "../assets/icon-devto.svg";
-// import Iconcodewars from "../assets/icon-codewars.svg";
-// import Iconcodepen from "../assets/icon-codepen.svg";
-// import Iconfreecodecamp from "../assets/icon-freecodecamp.svg";
-// import Icongitlab from "../assets/icon-gitlab.svg";
-// import Iconhashnode from "../assets/icon-hashnode.svg";
-// import Iconfacebook from "../assets/icon-facebook.svg";
-// import IconUploadImage from "../assets/icon-upload-image.svg";
+import { colorMap } from "../../helpers/utils";
 
 /**
  * LinkWrapper renders a sortable link item with an icon, label, and interactive behavior.
  */
 
 const formatText = (name: string): string => {
-  return name.replace(/\s+/g, "").toLowerCase();
+  return name.replace(/[\s.]+/g, "").toLowerCase();
 };
 
 type IconComponents = {
@@ -38,25 +39,18 @@ type IconComponents = {
 export const icones: IconComponents = {
   Icongithub,
   Iconfrontendmentor,
-  // Icontwitter,
-  // Iconlinkedin,
-  // Iconyoutube,
-  // Icontwitch,
-  // Icondevto,
-  // Iconcodewars,
-  // Iconcodepen,
-  // Iconfreecodecamp,
-  // Icongitlab,
-  // Iconhashnode,
-  // Iconfacebook,
-  // IconUploadImage,
-};
-
-const colorMap = {
-  "dark-purple": "bg-dark-purple",
-  "link-black": "bg-link-black",
-  "link-blue": "bg-link-blue",
-  // Add other colors as needed
+  Icontwitter,
+  Iconlinkedin,
+  Iconyoutube,
+  Icontwitch,
+  Icondevto,
+  Iconcodewars,
+  Iconcodepen,
+  Iconfreecodecamp,
+  Icongitlab,
+  Iconhashnode,
+  Iconfacebook,
+  IconUploadImage,
 };
 
 const LinkWrapper: React.FC<LinkWrapperProps> = ({
@@ -73,6 +67,8 @@ const LinkWrapper: React.FC<LinkWrapperProps> = ({
   const isFrontend = label === "Frontend Mentor";
   const iconKey = `Icon${formatText(label)}` as keyof typeof icones;
   const IconComponent = icones[iconKey];
+
+  console.log("iconKey", iconKey, { isFrontend });
 
   const handleClick = () => {
     if (url) {
@@ -99,8 +95,6 @@ const LinkWrapper: React.FC<LinkWrapperProps> = ({
     }
   };
 
-  const backgroundColorClass = `bg-${color}`;
-
   return (
     <div
       // ref={setNodeRef}
@@ -112,9 +106,9 @@ const LinkWrapper: React.FC<LinkWrapperProps> = ({
         userSelect: "none" as const,
       }}
       // TODO: FIX Index ts
-      className={`flex justify-between items-center sortable-item ${colorMap[color]} ${
-        isFrontend ? "border" : ""
-      } rounded-lg px-4 cursor-pointer w-full ${
+      className={`flex justify-between items-center sortable-item ${
+        colorMap[color]
+      } ${isFrontend ? "border" : ""} rounded-lg px-4 cursor-pointer w-full ${
         !isPreviewPage ? "h-11" : "h-14"
       }`}
       onClick={handleClick}

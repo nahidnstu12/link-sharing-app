@@ -124,6 +124,7 @@ export interface CustomsInputProps {
 export interface ButtonComponent {
   label: string;
   onClick?: (e: FormEvent) => void;
+  type?: string;
 }
 
 export interface IconWrapperType {

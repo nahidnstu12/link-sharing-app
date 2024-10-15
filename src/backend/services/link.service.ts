@@ -3,8 +3,8 @@ import { Types } from "mongoose";
 import { BaseService } from "./base.service";
 
 class LinkService extends BaseService {
-  async linkList() {
-    return Link.find();
+  async linkList(userId: any) {
+    return Link.find({ user_id: userId });
   }
 
   async findLink(id: string) {

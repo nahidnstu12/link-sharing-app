@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { CustomsInputProps } from "../types";
+import { CustomsInputProps } from "../../types";
 
 /**
  * Renders an input field that works with React Hook Form and Yup validation.

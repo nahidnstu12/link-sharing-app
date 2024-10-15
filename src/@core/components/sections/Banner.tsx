@@ -1,10 +1,10 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import LogoutWrapper from "./LogoutWrapper";
-import LogoWrapper from "./LogoWrapper";
-import NavWrapper from "./NavWrapper";
-import PreviewBtn from "./PreviewBtn";
+import PreviewBtn from "../common/PreviewBtn";
+import LogoutWrapper from "../wrapper/LogoutWrapper";
+import LogoWrapper from "../wrapper/LogoWrapper";
+import NavWrapper from "../wrapper/NavWrapper";
 
 /**
  * Banner component renders the navigation bar and logout button at the top of the application.
@@ -14,7 +14,7 @@ const navItems = [
   { type: "profile", path: "/profile" },
 ];
 const Banner = (): JSX.Element => {
-//   const { handleLogout } = useIsAuthenticated();
+  //   const { handleLogout } = useIsAuthenticated();
   const pathname = usePathname();
 
   return (

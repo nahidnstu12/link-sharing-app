@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import React, { ComponentType, useEffect } from "react";
-import useIsAuth from "../hook/useAuth";
 import Loading from "./Loading";
+import useAuth from "@/@core/hook/useAuth";
 
 /**
  * A higher-order component (HOC) that wraps a component to enforce authentication.
@@ -14,7 +14,7 @@ const withAuth = <P extends object>(
 ): React.FC<P> => {
   const ComponentWithAuth = (props: P) => {
     const router = useRouter();
-    const { isAuthenticated } = useIsAuth();
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
       if (isAuthenticated === false) {
