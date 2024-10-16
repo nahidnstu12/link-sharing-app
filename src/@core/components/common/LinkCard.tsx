@@ -11,23 +11,7 @@ const LinkCard = ({ links }: any): JSX.Element => {
   const pathname = usePathname();
   const isPreviewPage = pathname === "/preview";
 
-  // const { link, sensors, handleDragEnd } = useDragAndDrop();
-  // let link: any = [
-  //   {
-  //     key: "01",
-  //     label: "GitHub",
-  //     url: "github.com/nahid",
-  //     color: "link-black",
-  //     isLocal: false,
-  //   },
-  //   {
-  //     key: "03",
-  //     label: "LinkedIn",
-  //     url: "linkedin.com/nahid-dev",
-  //     color: "link-blue",
-  //     isLocal: false,
-  //   }
-  // ];
+
 
   return (
     <>

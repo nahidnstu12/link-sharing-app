@@ -11,9 +11,7 @@ const Profil = (): JSX.Element => {
   const loading = false;
   const error = null;
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [fetchData]);
+
 
   if (loading) return <Loading />;
   if (error) return <Error />;

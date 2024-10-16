@@ -1,4 +1,4 @@
-const SvgIcon = () => {
+const SVG: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,6 +6,7 @@ const SvgIcon = () => {
       height="40"
       fill="none"
       viewBox="0 0 40 40"
+      {...props}
     >
       <path
         fill="currentColor"
@@ -14,4 +15,4 @@ const SvgIcon = () => {
     </svg>
   );
 };
-export default SvgIcon;
+export default SVG;

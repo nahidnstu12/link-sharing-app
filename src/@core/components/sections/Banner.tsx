@@ -15,7 +15,6 @@ const navItems = [
   { type: "profile", path: "/profile" },
 ];
 const Banner = (): JSX.Element => {
-  //   const { handleLogout } = useIsAuthenticated();
   const pathname = usePathname();
   const { handleLogout } = useAuth();
 

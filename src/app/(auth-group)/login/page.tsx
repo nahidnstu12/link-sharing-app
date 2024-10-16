@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-// import IconLinkLarge from "../../assets/logo-devlinks-large.svg";
+import IconLinkLarge from "@/@core/assets/logo-devlinks-large.tsx";
 import Input from "@/@core/components/common/Input";
 import { apiPost } from "@/@core/helpers/common-api";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -56,7 +56,7 @@ const Login = (): JSX.Element => {
       <section className="flex flex-col bg-white sm:bg-background-white justify-center w-full h-screen">
         <div className=" flex flex-col items-center gap-[51px] w-full px-[8%] sm:px-[0]">
           <div className="w-[130px] h-[40px] lg:w-[183px] lg:h-[40px]">
-            {/* <IconLinkLarge className="w-full h-full max-w-full max-h-full" /> */}
+            <IconLinkLarge className="w-full h-full max-w-full max-h-full" />
           </div>
 
           <div className="flex flex-col items-start gap-[40px] sm:p-[40px] sm:w-[476px]  bg-white">

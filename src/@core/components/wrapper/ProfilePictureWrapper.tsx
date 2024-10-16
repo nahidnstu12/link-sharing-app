@@ -15,7 +15,7 @@ const SUPPORTED_FORMATS = ["image/jpeg", "image/png"];
 const ProfilePictureWrapper: React.FC<ProfilePictureWrapperProps> = ({
   setFile,
 }: ProfilePictureWrapperProps): JSX.Element => {
-  const profile = {};
+  const profile: any = {};
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const havePicture = profile?.image;

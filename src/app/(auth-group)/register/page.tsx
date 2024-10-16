@@ -3,14 +3,15 @@
 
 import Link from "next/link";
 
+import IconLinkLarge from "@/@core/assets/logo-devlinks-large.tsx";
 import Button from "@/@core/components/common/Button";
 import Input from "@/@core/components/common/Input";
 import { apiPost } from "@/@core/helpers/common-api";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-// import IconLinkLarge from "@/@core/assets/logo-devlinks-large.svg";
 
 const validationSchema = Yup.object().shape({
   first_name: Yup.string()
@@ -37,7 +38,7 @@ const validationSchema = Yup.object().shape({
  */
 
 const SignUp = (): JSX.Element => {
-  // const { handleSubmit, handleChange, formData, signupErrors } = useSignUp();
+  const router = useRouter();
 
   const methods = useForm({
     resolver: yupResolver(validationSchema),
@@ -48,9 +49,12 @@ const SignUp = (): JSX.Element => {
   const onSubmit = async (data: any) => {
     console.log("Form data:", data);
     try {
-      await apiPost("/register", data);
+      const response = await apiPost("/register", data);
       toast.success("Registration Successful");
-      // Router.push("/dashboard");
+      if (response?.data?.status >= 200) {
+        toast.success("Registration Successful");
+        router.push("/login");
+      }
     } catch (errors: any) {
       console.error("errors", errors);
       // toast.error(errors.response.data.message);
@@ -63,7 +67,7 @@ const SignUp = (): JSX.Element => {
         <div className=" flex flex-col items-center gap-[51px] w-full px-[5%] sm:px-[0]">
           <div className="w-[130px] h-[40px] lg:w-[183px] lg:h-[40px]">
             {/* TODO: FIX LATER */}
-            {/* <IconLinkLarge className="w-full h-full max-w-full max-h-full" /> */}
+            <IconLinkLarge className="w-full h-full max-w-full max-h-full" />
           </div>
           <div className="flex flex-col items-start gap-[40px] sm:p-[40px] sm:w-[476px]  bg-white">
             <h1 className=" text-titleSmall sm:text-title text-dark-gray">
