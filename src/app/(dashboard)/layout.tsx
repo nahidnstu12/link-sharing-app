@@ -8,15 +8,17 @@ import React from "react";
  * RootLayout component serves as the main layout wrapper for the application.
  */
 
-const PreviewLayout: React.FC<{ children: React.ReactNode }> = ({
+const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }: {
   children: React.ReactNode;
-}): JSX.Element => (
-  <LinkProvider>
-    {children}
-    <ToastProvider />
-  </LinkProvider>
-);
+}): JSX.Element => {
+  return (
+    <LinkProvider>
+      {children}
+      <ToastProvider />
+    </LinkProvider>
+  );
+};
 
-export default PreviewLayout;
+export default DashboardLayout;

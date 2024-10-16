@@ -1,14 +1,16 @@
 "use client";
 
+import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { platformColorMap } from "../../helpers/utils";
+import * as Yup from "yup";
+import { platformColorMap, platforms } from "../../helpers/utils";
 import useAuth from "../../hook/useAuth";
 import { useLinks } from "../../hook/useLinks";
+import Button from "../common/Button";
 import Input from "../common/Input";
 import PlaformSelectBox from "../common/PlatformSelectBox";
-import Button from "../common/Button";
 
 /**
  * CreateLink renders a form section for creating or editing a link.
@@ -19,17 +21,33 @@ interface AddEditLinkProps {
   isEditing?: boolean;
   closeForm: () => void;
 }
+const validationSchema = Yup.object().shape({
+  link: Yup.string().url("Invalid url format").required("link is required"),
+  platform: Yup.string().nullable(),
+});
 const AddEditLink: React.FC<AddEditLinkProps> = ({
   isEditing,
   itemId,
   closeForm,
 }) => {
-  const methods = useForm({});
+  const methods = useForm({ resolver: yupResolver(validationSchema) });
   const { authUser } = useAuth();
   const { addLink, editLink, links } = useLinks();
+
+  const linkedPlatforms = links.map((link) => link.platform);
+  const platformOptions = platforms.filter(
+    (platform) => !linkedPlatforms.includes(platform)
+  );
+
   const existingLink = links.find((link) => link._id === itemId);
 
-  const { handleSubmit, reset, setValue } = methods;
+  const {
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = methods;
+  console.log("errors link addedit>", errors);
 
   useEffect(() => {
     // Check if we're editing and itemId is provided
@@ -42,16 +60,22 @@ const AddEditLink: React.FC<AddEditLinkProps> = ({
   }, [isEditing, itemId, reset]);
 
   const onSubmit = async (data: any) => {
-    data.user_id = authUser?._id;
-    data.color = platformColorMap[data.platform];
-    if (isEditing && itemId) {
-      await editLink(itemId, data);
-      toast.success("Link updated successfully");
-    } else {
-      await addLink(data);
-      toast.success("Link added successfully");
+    try {
+      console.log("submit data>", data);
+      data.platform = data?.platform || platformOptions[0];
+      data.user_id = authUser?._id;
+      data.color = platformColorMap[data.platform].replace('bg-', '');
+      if (isEditing && itemId) {
+        await editLink(itemId, data);
+        toast.success("Link updated successfully");
+      } else {
+        await addLink(data);
+        toast.success("Link added successfully");
+      }
+      closeForm();
+    } catch (err) {
+      console.log("Link create or upddate failed:", err);
     }
-    closeForm();
   };
 
   return (
@@ -61,14 +85,17 @@ const AddEditLink: React.FC<AddEditLinkProps> = ({
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <PlaformSelectBox
-            platformValue={methods.watch("platform")}
+            platformValue={
+              (methods.watch("platform") as string) || platformOptions[0]
+            }
             setValue={setValue}
+            platformOptions={platformOptions}
           />
           <div className="mt-4">
             <Input
               name={"link"}
               label={"Link"}
-              placeholder={`e.g. github.com/nahid`}
+              placeholder={`e.g. paste your url`}
               type="text"
               iconSrc={"/images/icon-link.svg"}
               autoComplete="off"

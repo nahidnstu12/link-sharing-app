@@ -36,6 +36,7 @@ const SettingContainer = (): JSX.Element => {
           onClick={() => {
             setOpenForm((prev) => !prev);
           }}
+          disabled={links?.length >=5}
         />
       </div>
       {/* ADD LINK COMPONENT */}

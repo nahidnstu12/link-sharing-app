@@ -1,5 +1,6 @@
 "use client";
 
+import useAuth from "@/@core/hook/useAuth";
 import { usePathname } from "next/navigation";
 import PreviewBtn from "../common/PreviewBtn";
 import LogoutWrapper from "../wrapper/LogoutWrapper";
@@ -16,6 +17,7 @@ const navItems = [
 const Banner = (): JSX.Element => {
   //   const { handleLogout } = useIsAuthenticated();
   const pathname = usePathname();
+  const { handleLogout } = useAuth();
 
   return (
     <header className="mx-auto my-5 bg-white sm:w-[95%] sm:rounded-lg">
@@ -35,7 +37,7 @@ const Banner = (): JSX.Element => {
           <div className=" w-[52px] h-[42px] sm:w-[100px] sm:h-[46px]">
             <PreviewBtn href={"/preview"} label={"Preview"} />
           </div>
-          <LogoutWrapper onClick={() => {}} />
+          <LogoutWrapper onClick={handleLogout} />
         </div>
       </nav>
     </header>

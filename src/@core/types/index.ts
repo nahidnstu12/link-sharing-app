@@ -124,7 +124,8 @@ export interface CustomsInputProps {
 export interface ButtonComponent {
   label: string;
   onClick?: (e: FormEvent) => void;
-  type?: string;
+  type?:  'button' | 'submit' | 'reset';
+  disabled?: boolean;
 }
 
 export interface IconWrapperType {

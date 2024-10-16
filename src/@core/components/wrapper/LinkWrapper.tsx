@@ -68,7 +68,6 @@ const LinkWrapper: React.FC<LinkWrapperProps> = ({
   const iconKey = `Icon${formatText(label)}` as keyof typeof icones;
   const IconComponent = icones[iconKey];
 
-  console.log("iconKey", iconKey, { isFrontend });
 
   const handleClick = () => {
     if (url) {
