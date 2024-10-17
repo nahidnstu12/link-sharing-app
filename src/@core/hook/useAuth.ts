@@ -25,8 +25,11 @@ const useAuth = () => {
       }
     };
 
-    verifyAuth();
-  }, []);
+    if (isAuthenticated === null) {
+      console.log("hook call");
+      verifyAuth();
+    }
+  }, [isAuthenticated, router]);
 
   const handleLogout = useCallback(async () => {
     try {
@@ -34,8 +37,7 @@ const useAuth = () => {
       console.log("logout", logoutApi.data);
 
       setIsAuthenticated(false);
-      setUser(null);
-      console.log("Logged out successfully");
+      setUser(null);      
       router.push("/login");
       toast.success("Logout Successfully");
     } catch (err) {

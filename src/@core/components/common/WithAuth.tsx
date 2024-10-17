@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { ComponentType, useEffect } from "react";
 import Loading from "./Loading";
-import useAuth from "@/@core/hook/useAuth";
+import useAuth from "@/@core/hook/useAuthContext";
 
 /**
  * A higher-order component (HOC) that wraps a component to enforce authentication.

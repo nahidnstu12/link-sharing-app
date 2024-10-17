@@ -38,16 +38,15 @@ const Login = (): JSX.Element => {
     console.log("Form data:", data);
     try {
       const resposne = await apiPost("/login", data);
-      console.log("resposne login>>", resposne?.data?.data);
-
+      
       if (resposne?.data?.status == 200) {
         // Cookies.set("token", resposne?.data?.token!, { expires: 24 });
         toast.success("Login Successful");
         router.push("/home");
       }
     } catch (errors: any) {
-      console.error("errors", errors);
-      toast.error(errors.response.data.message);
+      console.error("login errors", errors?.response?.data?.message);
+      toast.error(errors?.response?.data?.message || "Something went wrong");
     }
   };
 

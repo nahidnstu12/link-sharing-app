@@ -1,6 +1,11 @@
+import { UPLOAD_DIR } from "@/@core/helpers/constants";
 import User from "@/backend/models/user.model";
 import bcrypt from "bcryptjs";
+import fs, { promises as fsPromises } from "fs";
+import jwt from "jsonwebtoken";
 import mongoose, { Types } from "mongoose";
+import { cookies } from "next/headers";
+import path from "path";
 import { BaseService } from "./base.service";
 
 class UserService extends BaseService {
@@ -53,12 +58,6 @@ class UserService extends BaseService {
       return this.createResponse(400, "Invalid email or password.");
     }
 
-    // const token = this.createToken({
-    //   type: 'JWT',
-    //   username: user.username,
-    //   email: user.email
-    // })
-
     return this.createResponse(200, "User fetch successful.", { user });
   }
   async fetchProfile({ email, userId }: any) {
@@ -94,6 +93,46 @@ class UserService extends BaseService {
 
     return this.createResponse(200, "User fetch successful.", userProfile[0]);
   }
+
+  async getAuthenticatedUser() {
+    const cookieStore = cookies();
+    const authToken = cookieStore.get("token");
+
+    if (!authToken?.value) {
+      return null;
+    }
+
+    const key = process.env.NEXT_PUBLIC_SECRET_KEY as string;
+    const decoded: any = jwt.verify(authToken.value, key);
+
+    return this.findUser(decoded?.userId);
+  }
+
+  async deleteOldFile(photoPath: string) {
+    if (photoPath) {
+      const oldFilePath = path.resolve(UPLOAD_DIR, path.basename(photoPath));
+      if (fs.existsSync(oldFilePath)) {
+        await fsPromises.unlink(oldFilePath);
+      }
+    }
+  }
+  async uploadNewFile(file: File, userId: string) {
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const fileExtension = path.extname(file.name);
+    const newFileName = `${userId}-${Date.now()}${fileExtension}`;
+    const filePath = path.resolve(UPLOAD_DIR, newFileName);
+
+    // Create the upload directory if it doesn't exist
+    if (!fs.existsSync(UPLOAD_DIR)) {
+      fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+    }
+
+    // Write the new file
+    fs.writeFileSync(filePath, buffer);
+
+    return `/uploads/${newFileName}`;
+  }
+ 
 }
 
 export default UserService;

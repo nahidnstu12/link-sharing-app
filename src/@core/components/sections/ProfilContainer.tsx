@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "../common/Button";
 import ProfileDetailsWrapper from "../wrapper/ProfileDetailsWrapper";
 import ProfilePictureWrapper from "../wrapper/ProfilePictureWrapper";
 
@@ -9,8 +8,6 @@ import ProfilePictureWrapper from "../wrapper/ProfilePictureWrapper";
  */
 
 const ProfilContainer = () => {
-  // const { profile, profilErrors, setFile, handleChange, handleSubmit } =
-  //   useUpdateProfile();
   const profile = {};
 
   return (
@@ -21,23 +18,13 @@ const ProfilContainer = () => {
       <p className="mb-10">
         Add your details to create a personal touch to your profile.
       </p>
-      <form onSubmit={() => {}}>
-        <div className="mb-6">
-          <ProfilePictureWrapper setFile={() => {}} />
-        </div>
-        <div className="mb-6 sm:mb-[100px]">
-          <ProfileDetailsWrapper
-            profile={profile}
-            handleChange={() => {}}
-            profilErrors={{}}
-          />
-        </div>
-        <div className="flex justify-end w-full border-t ">
-          <div className="w-full sm:w-[91px] mt-6">
-            <Button label={"Save"} />
-          </div>
-        </div>
-      </form>
+
+      <div className="mb-6">
+        <ProfilePictureWrapper />
+      </div>
+      <div className="mb-3 sm:mb-[100px]">
+        <ProfileDetailsWrapper />
+      </div>
     </div>
   );
 };

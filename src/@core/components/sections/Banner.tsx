@@ -1,6 +1,6 @@
 "use client";
 
-import useAuth from "@/@core/hook/useAuth";
+import useAuth from "@/@core/hook/useAuthContext";
 import { usePathname } from "next/navigation";
 import PreviewBtn from "../common/PreviewBtn";
 import LogoutWrapper from "../wrapper/LogoutWrapper";

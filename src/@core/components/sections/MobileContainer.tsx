@@ -11,6 +11,7 @@ import DisplayPreviewProfile from "./DisplayPreviewProfile";
 
 const MobileContainer = (): JSX.Element => {
   const { links } = useLinks();
+  
 
   const containerClass =
     links && links.length > 5
@@ -33,7 +34,7 @@ const MobileContainer = (): JSX.Element => {
             priority
           />
           <div className={`absolute top-10 left-[55px] w-[200px] h-[200px] `}>
-            <DisplayPreviewProfile profile={{}} />
+            <DisplayPreviewProfile  />
           </div>
           <div
             className={` ${containerClass} absolute left-8 top-[278px] w-60 h-1/2 ${

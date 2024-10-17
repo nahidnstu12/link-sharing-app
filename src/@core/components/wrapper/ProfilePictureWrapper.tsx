@@ -1,66 +1,32 @@
 "use client";
 
 import IconUploadImage from "@/@core/assets/icon-upload-image.tsx";
-import { ProfilePictureWrapperProps } from "@/@core/types";
+import useAuthContext from "@/@core/hook/useAuthContext";
 import Image from "next/image";
-import React, { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 
-const MAX_IMAGE_DIMENSION = 1024;
-const SUPPORTED_FORMATS = ["image/jpeg", "image/png"];
+// const MAX_IMAGE_DIMENSION = 1024;
 
 /**
  * ProfilePictureWrapper allows users to upload and change their profile picture.
  */
 
-const ProfilePictureWrapper: React.FC<ProfilePictureWrapperProps> = ({
-  setFile,
-}: ProfilePictureWrapperProps): JSX.Element => {
-  const profile: any = {};
+const ProfilePictureWrapper = (): JSX.Element => {
+  const { authUser, handleFileChange } = useAuthContext();
+  const [file, setFile] = useState<File | null>(null);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const havePicture = profile?.image;
+  const havePicture = authUser?.photo_path;
 
   const textStyles = havePicture
     ? "text-white absolute"
     : "text-dark-purple absolute";
   const iconStyles = havePicture ? "text-white" : "text-dark-purple";
 
-  const validateFile = (file: File) => {
-    if (!SUPPORTED_FORMATS.includes(file.type)) {
-      alert("Please upload an image in JPG or PNG format.");
-      return false;
-    }
-    return true;
-  };
-
   const handleImageClick = useCallback(() => {
     fileInputRef.current?.click();
   }, []);
-
-  const handleFileChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0];
-      if (file && validateFile(file)) {
-        const img = new window.Image();
-        img.onload = () => {
-          if (
-            img.width <= MAX_IMAGE_DIMENSION &&
-            img.height <= MAX_IMAGE_DIMENSION
-          ) {
-            setFile(file);
-            // updateProfileLocal({ image: URL.createObjectURL(file) });
-          } else {
-            alert(
-              `Image dimensions should be less than ${MAX_IMAGE_DIMENSION}x${MAX_IMAGE_DIMENSION}px.`
-            );
-          }
-          URL.revokeObjectURL(img.src);
-        };
-        img.src = URL.createObjectURL(file);
-      }
-    },
-    [setFile]
-  );
 
   return (
     <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center sm:gap-16 gap-4 bg-background-white p-5 rounded-lg">
@@ -78,7 +44,11 @@ const ProfilePictureWrapper: React.FC<ProfilePictureWrapperProps> = ({
             />
             {havePicture && (
               <Image
-                src={typeof profile.image === "string" ? profile.image : ""}
+                src={
+                  typeof authUser?.photo_path === "string"
+                    ? authUser?.photo_path
+                    : ""
+                }
                 alt="Profile"
                 width={193}
                 height={193}

@@ -33,17 +33,13 @@ const Preview = (): JSX.Element => {
             <div className="w-full sm:w-[390px] h-full sm:h-[710px] bg-white sm:rounded-3xl sm:shadow-custom-gray sm:mt-10">
               <div className=" flex flex-col items-center w-full h-full p-12 gap-10">
                 <div className="w-[200px] h-[200px]">
-                  <DisplayPreviewProfile profile={{}} />
+                  <DisplayPreviewProfile />
                 </div>
                 <div className={`${containerClass} w-full`}>
                   <LinkCard links={links} />
                 </div>
               </div>
-              {links && links.length > 5 && (
-                <span className="absolute z-99 bottom-[2%] left-1/2 text-sm transform -translate-x-1/2 hidden sm:block">
-                  Scroll up and down
-                </span>
-              )}
+             
             </div>
           </div>
         </div>

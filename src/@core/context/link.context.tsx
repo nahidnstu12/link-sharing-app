@@ -1,7 +1,7 @@
 // LinkContext.tsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { apiDelete, apiGet, apiPost, apiPut } from "../helpers/common-api";
-import useAuth from "../hook/useAuth";
+import useAuth from "../hook/useAuthContext";
 
 interface Link {
   _id: string;

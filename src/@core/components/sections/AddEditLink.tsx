@@ -6,7 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { platformColorMap, platforms } from "../../helpers/utils";
-import useAuth from "../../hook/useAuth";
+import useAuth from "../../hook/useAuthContext";
 import { useLinks } from "../../hook/useLinks";
 import Button from "../common/Button";
 import Input from "../common/Input";
