@@ -7,6 +7,7 @@ const UserSchema = new Schema(
     last_name: { type: "string", required: false },
     password: { type: "string", required: true },
     photo_path: { type: "string", required: false },
+    photo_type: { type: "string",  required: false },
   },
   {
     timestamps: true,

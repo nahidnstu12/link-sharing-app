@@ -12,6 +12,7 @@ const Button: React.FC<ButtonComponent> = ({
   onClick,
   type = "button",
   disabled = false,
+  isLoading = false,
 }: ButtonComponent): JSX.Element => {
   const colorStyle = disabled
     ? "bg-white text-medium-gray border border-medium-gray"
@@ -23,10 +24,10 @@ const Button: React.FC<ButtonComponent> = ({
     <button
       type={type}
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       className={`${colorStyle} duration-500 ease-in-out font-semibold rounded-lg w-full h-[46px]`}
     >
-      {label}
+      {isLoading ? "Submitting..." : label}
     </button>
   );
 };

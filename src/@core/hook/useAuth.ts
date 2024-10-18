@@ -1,9 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { apiGet } from "../helpers/common-api";
-import { toast } from "react-toastify";
 
 /**
  * Custom hook to handle authentication and logout functionality.
@@ -25,28 +24,12 @@ const useAuth = () => {
       }
     };
 
-    if (isAuthenticated === null) {
-      console.log("hook call");
+    if (isAuthenticated == null) {
       verifyAuth();
     }
   }, [isAuthenticated, router]);
 
-  const handleLogout = useCallback(async () => {
-    try {
-      const logoutApi = await apiGet("/logout");
-      console.log("logout", logoutApi.data);
-
-      setIsAuthenticated(false);
-      setUser(null);      
-      router.push("/login");
-      toast.success("Logout Successfully");
-    } catch (err) {
-      console.log("verifyAuth err>", err);
-      router.push("/login");
-    }
-  }, [router]);
-
-  return { isAuthenticated, authUser: user, handleLogout };
+  return { isAuthenticated, authUser: user };
 };
 
 export default useAuth;

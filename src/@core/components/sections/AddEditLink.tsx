@@ -1,7 +1,7 @@
 "use client";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
@@ -30,6 +30,7 @@ const AddEditLink: React.FC<AddEditLinkProps> = ({
   itemId,
   closeForm,
 }) => {
+  const [loading, setLoading] = useState(false);
   const methods = useForm({ resolver: yupResolver(validationSchema) });
   const { authUser } = useAuth();
   const { addLink, editLink, links } = useLinks();
@@ -62,6 +63,7 @@ const AddEditLink: React.FC<AddEditLinkProps> = ({
   const onSubmit = async (data: any) => {
     try {
       console.log("submit data>", data);
+      setLoading(true)
       data.platform = data?.platform || platformOptions[0];
       data.user_id = authUser?._id;
       data.color = platformColorMap[data.platform].replace('bg-', '');
@@ -73,8 +75,10 @@ const AddEditLink: React.FC<AddEditLinkProps> = ({
         toast.success("Link added successfully");
       }
       closeForm();
+      setLoading(false)
     } catch (err) {
       console.log("Link create or upddate failed:", err);
+      setLoading(false)
     }
   };
 
@@ -107,7 +111,7 @@ const AddEditLink: React.FC<AddEditLinkProps> = ({
               <Button label={"Cancel"} onClick={closeForm} />
             </div>
             <div className="w-full sm:w-[91px] my-3 ">
-              <Button label={isEditing ? "Update" : "Save"} type="submit" />
+              <Button label={isEditing ? "Update" : "Save"} type="submit" isLoading={loading} />
             </div>
           </div>
         </form>

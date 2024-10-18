@@ -1,7 +1,7 @@
 "use client";
 import useAuthContext from "@/@core/hook/useAuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import Button from "../common/Button";
@@ -29,6 +29,7 @@ const validationSchema = Yup.object().shape({
 
 const ProfileDetailsWrapper = (): JSX.Element => {
   const { authUser, updateProfile } = useAuthContext();
+  const [loading, setLoading] = useState(false);
 
   const methods = useForm({
     resolver: yupResolver(validationSchema),
@@ -47,10 +48,13 @@ const ProfileDetailsWrapper = (): JSX.Element => {
 
   const onSubmit = async (data: any) => {
     console.log("Form data:", data);
+    setLoading(true)
     try {
       await updateProfile(data);
+      setLoading(false)
     } catch (err) {
       console.log("errro in updating profile", err);
+      setLoading(false)
     }
   };
 
@@ -89,7 +93,7 @@ const ProfileDetailsWrapper = (): JSX.Element => {
         </div>
         <div className="flex justify-end w-full border-t my-3 ">
           <div className="w-full sm:w-[91px] mt-6">
-            <Button label={"Save"} type={"submit"} />
+            <Button label={"Save"} type={"submit"} isLoading={loading} />
           </div>
         </div>
       </form>

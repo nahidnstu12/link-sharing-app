@@ -132,6 +132,10 @@ class UserService extends BaseService {
 
     return `/uploads/${newFileName}`;
   }
+
+  async uploadProfileDB() {
+    
+  }
  
 }
 

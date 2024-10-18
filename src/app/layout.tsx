@@ -19,6 +19,8 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({
   const router = useRouter();
   const { isAuthenticated } = useAuth();
 
+  
+
   useEffect(() => {
     // Redirect user if authenticated and trying to access login or register
     const publicRoutes = ["/login", "/register"];

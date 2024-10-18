@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import IconLinkLarge from "@/@core/assets/logo-devlinks-large.tsx";
+import Button from "@/@core/components/common/Button";
 import Input from "@/@core/components/common/Input";
 import { apiPost } from "@/@core/helpers/common-api";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import Button from "@/@core/components/common/Button";
+import { useState } from "react";
 
 /**
  * The Login component renders a login form where users can enter their email and password to access their account.
@@ -27,6 +28,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = (): JSX.Element => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const methods = useForm({
@@ -37,15 +39,17 @@ const Login = (): JSX.Element => {
   const onSubmit = async (data: any) => {
     console.log("Form data:", data);
     try {
+       setLoading(true);
       const resposne = await apiPost("/login", data);
-      
+
       if (resposne?.data?.status == 200) {
-        // Cookies.set("token", resposne?.data?.token!, { expires: 24 });
         toast.success("Login Successful");
+        setLoading(false);
         router.push("/home");
       }
     } catch (errors: any) {
       console.error("login errors", errors?.response?.data?.message);
+      setLoading(false);
       toast.error(errors?.response?.data?.message || "Something went wrong");
     }
   };
@@ -91,7 +95,7 @@ const Login = (): JSX.Element => {
                     />
                   </div>
                 </div>
-                <Button label={"Login"} type={"submit"} />
+                <Button label={"Login"} type={"submit"} isLoading={loading} />
                 <p className="text-base px-[5%] sm:px-[10%] text-center ">
                   Don&apos;t have an account?{" "}
                   <Link href="/register">

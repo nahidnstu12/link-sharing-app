@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
+import { useState } from "react";
 
 const validationSchema = Yup.object().shape({
   first_name: Yup.string()
@@ -39,6 +40,7 @@ const validationSchema = Yup.object().shape({
 
 const SignUp = (): JSX.Element => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const methods = useForm({
     resolver: yupResolver(validationSchema),
@@ -47,17 +49,18 @@ const SignUp = (): JSX.Element => {
   const { handleSubmit } = methods;
 
   const onSubmit = async (data: any) => {
-    console.log("Form data:", data);
     try {
+      setLoading(true);
       const response = await apiPost("/register", data);
-      toast.success("Registration Successful");
       if (response?.data?.status >= 200) {
         toast.success("Registration Successful");
         router.push("/login");
+        setLoading(false);
       }
     } catch (errors: any) {
       console.error("errors", errors);
-      // toast.error(errors.response.data.message);
+      setLoading(false);
+      toast.error(errors?.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -66,7 +69,6 @@ const SignUp = (): JSX.Element => {
       <section className="flex flex-col bg-white  sm:bg-background-white justify-center w-full h-full">
         <div className=" flex flex-col items-center gap-[51px] w-full px-[5%] sm:px-[0]">
           <div className="w-[130px] h-[40px] lg:w-[183px] lg:h-[40px]">
-            {/* TODO: FIX LATER */}
             <IconLinkLarge className="w-full h-full max-w-full max-h-full" />
           </div>
           <div className="flex flex-col items-start gap-[40px] sm:p-[40px] sm:w-[476px]  bg-white">
@@ -122,7 +124,11 @@ const SignUp = (): JSX.Element => {
                 <p className="text-xs">
                   Password must contain at least 8 characters
                 </p>
-                <Button label={"Create a new account"} type={"submit"} />
+                <Button
+                  label={"Create a new account"}
+                  type={"submit"}
+                  isLoading={loading}
+                />
                 <p className="text-base px-[5%] sm:px-[10%] text-center ">
                   Already have an account?{" "}
                   <Link href="/login">

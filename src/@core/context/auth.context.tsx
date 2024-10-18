@@ -9,6 +9,7 @@ import { apiGet, apiPut } from "../helpers/common-api";
 export const AuthContext = createContext<any>(null);
 
 const SUPPORTED_FORMATS = ["image/jpeg", "image/png"];
+const IMAGE_MAX_SIZE = '2MB'
 const validateFile = (file: File) => {
   if (!SUPPORTED_FORMATS.includes(file.type)) {
     alert("Please upload an image in JPG or PNG format.");
@@ -36,21 +37,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
+
     // Only verify if authentication status is not already set
-    if (isAuthenticated === null) {
-      console.log("context call");
+    if (isAuthenticated === null|| user === null) {
 
       verifyAuth();
     }
   }, [isAuthenticated, router]);
 
-  console.log("user", user);
+  console.log("user context", user);
 
   // Function to handle logout
   const handleLogout = useCallback(async () => {
     try {
-      const logoutApi = await apiGet("/logout");
-      console.log("logout", logoutApi.data);
+       await apiGet("/logout");
 
       setIsAuthenticated(false);
       setUser(null);
@@ -91,12 +91,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         try {
           // Sending the file to the API
-          const response = await fetch("/api/upload", {
+          const response = await fetch("/api/file/upload", {
             method: "POST",
             body: formData,
           });
           const result = await response.json();
-          console.log("result", result);
+          console.log("result", result, currentFile);
 
           if (result?.success) {
             setUser(result?.data);

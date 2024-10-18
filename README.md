@@ -82,6 +82,33 @@ Here is the planning and workflow documentation for this project on Notion: [Ass
 
 5. Navigate to `http://localhost:3600` in your browser.
 
+
+### Project Structure
+
+```
+/public
+  /images       # Static images
+  /uploads      # Uploads image store
+/src
+  /@core
+    /components  # UI components
+    /context     # Context API files
+    /helpers     # Utility functions
+    /hooks       # Custom React hooks
+    /lib         # Libraries 
+    /types       # TypeScript types
+  /app
+    /api         # API routes
+  /backend
+    /models      # Database models
+    /services    # Business logic
+    db.ts        # Database connection
+package.json     # Dependencies and scripts
+README           # Project documentation
+
+
+```
+
 ## API Endpoints
 
 - **POST /api/auth/register**: Create a new user.
@@ -116,29 +143,4 @@ color: string,
 user_id: string, FK
 ```
 
-### Project Structure
 
-
-```
-/public
-  /images       # Static images
-  /uploads      # Uploads image store
-/src
-  /@core
-    /components  # UI components
-    /context     # Context API files
-    /helpers     # Utility functions
-    /hooks       # Custom React hooks
-    /lib         # Libraries 
-    /types       # TypeScript types
-  /app
-    /api         # API routes
-  /backend
-    /models      # Database models
-    /services    # Business logic
-    db.ts        # Database connection
-package.json     # Dependencies and scripts
-README           # Project documentation
-
-
-```

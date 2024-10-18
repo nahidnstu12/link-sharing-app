@@ -13,8 +13,7 @@ import { useCallback, useRef, useState } from "react";
 
 const ProfilePictureWrapper = (): JSX.Element => {
   const { authUser, handleFileChange } = useAuthContext();
-  const [file, setFile] = useState<File | null>(null);
-
+  
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const havePicture = authUser?.photo_path;
@@ -43,17 +42,28 @@ const ProfilePictureWrapper = (): JSX.Element => {
               className={`w-[40px] h-[40px] absolute top-[60px] left-[75px] z-10 ${iconStyles}`}
             />
             {havePicture && (
-              <Image
+              // <Image
+              //   src={
+              //     typeof authUser?.photo_path === "string"
+              //       ? `data:base64,${authUser?.photo_path}`
+              //       : ""
+              //   }
+              //   alt="Profile"
+              //   width={193}
+              //   height={193}
+              //   className="absolute z-0 h-[193px] w-[193px] object-cover"
+              //   priority
+              // />
+              <img
                 src={
                   typeof authUser?.photo_path === "string"
-                    ? authUser?.photo_path
+                    ? `data:${authUser?.photo_type};base64,${authUser?.photo_path}`
                     : ""
                 }
                 alt="Profile"
                 width={193}
                 height={193}
                 className="absolute z-0 h-[193px] w-[193px] object-cover"
-                priority
               />
             )}
             <p
@@ -64,7 +74,7 @@ const ProfilePictureWrapper = (): JSX.Element => {
           </div>
         </div>
         <p className="text-xs">
-          Image must be below 1024x1024px. Use PNG or JPG format.
+          Image must be below 2MB. Use PNG or JPG format.
         </p>
         <input
           type="file"

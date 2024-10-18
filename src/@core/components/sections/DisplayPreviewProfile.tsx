@@ -20,8 +20,19 @@ const DisplayPreviewProfile = (): JSX.Element | null => {
     <div className="relative h-full w-full">
       {authUser?.photo_path && (
         <div className="absolute top-5 left-12 w-[108px] h-[108px] border-4 border-dark-purple rounded-full flex justify-center items-center bg-white">
-          <Image
+          {/* <Image
             src={typeof authUser.photo_path === "string" ? authUser.photo_path : ""}
+            alt="Profile"
+            width={100}
+            height={100}
+            className="w-[100px] h-[100px] object-cover rounded-full"
+          /> */}
+          <img
+            src={
+              typeof authUser?.photo_path === "string"
+                ? `data:${authUser?.photo_type};base64,${authUser?.photo_path}`
+                : ""
+            }
             alt="Profile"
             width={100}
             height={100}

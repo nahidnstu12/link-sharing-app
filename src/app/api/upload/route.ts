@@ -1,6 +1,6 @@
 import { resolveService } from "@/backend/services/base.service";
 import UserService from "@/backend/services/user.service";
-import console from "console";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {

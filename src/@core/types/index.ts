@@ -126,6 +126,7 @@ export interface ButtonComponent {
   onClick?: (e: FormEvent) => void;
   type?:  'button' | 'submit' | 'reset';
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 export interface IconWrapperType {
