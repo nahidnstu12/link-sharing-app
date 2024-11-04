@@ -52,15 +52,15 @@ const SignUp = (): JSX.Element => {
       setLoading(true);
 
       const response = await apiPost("/register", data);
-      if (response?.data?.status >= 200 && response?.data?.status <= 300) {
+      if (response?.status >= 200) {
         toast.success("Registration Successful");
         router.push("/login");
         setLoading(false);
       }
     } catch (errors: any) {
-      console.error("errors", errors, errors?.response?.data?.message);
-
-      toast.error(errors?.response?.data?.message || "Something went wrong");
+      
+      console.error("errors", errors);
+      toast.error(errors?.message || "Something went wrong");
       setLoading(false);
     }
   };

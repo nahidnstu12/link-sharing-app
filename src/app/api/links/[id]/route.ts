@@ -8,8 +8,8 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const roleService = await resolveService(LinkService);
-    const link = await roleService.findLink(params.id);
+    const linkService = await resolveService(LinkService);
+    const link = await linkService.findLink(params.id);
     if (!link) {
       return new NextResponse(JSON.stringify({ message: "Link not found" }), {
         status: 400,
@@ -29,10 +29,10 @@ export const PUT = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const roleService = await resolveService(LinkService);
+    const linkService = await resolveService(LinkService);
     const body = await request.json();
 
-    const updatedRole = await roleService.updateLink(body, params.id);
+    const updatedRole = await linkService.updateLink(body, params.id);
 
     if (!updatedRole) {
       return new NextResponse(JSON.stringify({ message: "Link not found" }), {
@@ -56,8 +56,8 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const roleService = await resolveService(LinkService);
-    const link = await roleService.deleteLink(params.id);
+    const linkService = await resolveService(LinkService);
+    const link = await linkService.deleteLink(params.id);
 
     if (!link) {
       return new NextResponse(

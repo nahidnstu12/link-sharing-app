@@ -30,17 +30,21 @@ export const useLinkContext = () => {
 export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  console.log("LOAD: LinkProvider");
   const [links, setLinks] = useState<Link[]>([]);
   const { authUser } = useAuth();
 
   const fetchLinks = async () => {
     try {
       if (authUser?._id) {
-        const res: any = await apiGet(`/links?user_id=${authUser?._id}`);
-        setLinks(res?.data?.items || []);
+        const res: any = await apiGet(`/links?user_id=${authUser?._id}`, {
+          next: { revalidate: 60 },
+        });
+        console.log("fetch links>", res, res?.items);
+        
+        setLinks(res?.items || []);
       }
       console.log("fetchLinks context else>");
-      
     } catch (error) {
       console.error("Failed to fetch links", error);
     }

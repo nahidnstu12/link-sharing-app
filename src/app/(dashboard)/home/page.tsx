@@ -6,6 +6,7 @@ import SettingContainer from "@/@core/components/sections/SettingContainer";
 import React from "react";
 
 const Home: React.FC = (): JSX.Element => {
+  console.log("LOAD: Home page");
   return (
     <MainLayout>
       <div className="flex gap-5 mx-auto sm:w-[95%]">
