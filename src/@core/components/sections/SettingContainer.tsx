@@ -12,6 +12,7 @@ import Button from "../common/Button";
  **/
 
 const SettingContainer = (): JSX.Element => {
+  console.log("LOAD: SettingContainer");
   const [openForm, setOpenForm] = useState(false);
   const { links } = useLinks();
   const containerClass = links && links.length > 2 ? "overflow-y-auto " : "";
@@ -19,7 +20,7 @@ const SettingContainer = (): JSX.Element => {
     setOpenForm(false);
   };
 
-  console.log("SettingContainer>>", links);
+  // console.log("SettingContainer>>", links);
 
   return (
     <div className="w-full h-full p-7 sm:p-10">

@@ -10,9 +10,9 @@ import DisplayPreviewProfile from "./DisplayPreviewProfile";
  */
 
 const MobileContainer = (): JSX.Element => {
+  console.log("LOAD: MobileConteainer");
   const { links } = useLinks();
   
-
   const containerClass =
     links && links.length > 5
       ? "no-scrollbar h-[300px] overflow-y-auto "

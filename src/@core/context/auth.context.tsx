@@ -3,13 +3,13 @@
 import { useRouter } from "next/navigation";
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { apiGet, apiPut } from "../helpers/common-api";
+import { apiGet, apiPut } from "../helpers/common-api-v2";
 
 // Create the Auth context
 export const AuthContext = createContext<any>(null);
 
 const SUPPORTED_FORMATS = ["image/jpeg", "image/png"];
-const IMAGE_MAX_SIZE = '2MB'
+const IMAGE_MAX_SIZE = "2MB";
 const validateFile = (file: File) => {
   if (!SUPPORTED_FORMATS.includes(file.type)) {
     alert("Please upload an image in JPG or PNG format.");
@@ -19,30 +19,36 @@ const validateFile = (file: File) => {
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  console.log("LOAD: AuthProvider");
+  
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [user, setUser] = useState<any>(null);
   const router = useRouter();
 
   // Check authentication on mount
   useEffect(() => {
+    console.log("LOAD: AuthProvider, useeffect");
     const verifyAuth = async () => {
       try {
         const profileApi = await apiGet("/profile");
+        
         setUser(profileApi?.data?.data);
         setIsAuthenticated(!!profileApi?.data?.data?._id);
+        console.log("LOAD: AuthProvider, useeffect, 2");
       } catch (err) {
         console.log("verifyAuth err>", err);
         setIsAuthenticated(false);
         router.push("/login");
+        console.log("LOAD: AuthProvider, useeffect, 3");
       }
     };
 
-
     // Only verify if authentication status is not already set
-    if (isAuthenticated === null|| user === null) {
-
+    if (isAuthenticated === null || user === null) {
+      console.log("LOAD: AuthProvider, useeffect, 4");
       verifyAuth();
     }
+    console.log("LOAD: AuthProvider, useeffect, 5");
   }, [isAuthenticated, router]);
 
   console.log("user context", user);
@@ -50,7 +56,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   // Function to handle logout
   const handleLogout = useCallback(async () => {
     try {
-       await apiGet("/logout");
+      await apiGet("/logout");
 
       setIsAuthenticated(false);
       setUser(null);

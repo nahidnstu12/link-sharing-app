@@ -9,10 +9,10 @@ import Input from "@/@core/components/common/Input";
 import { apiPost } from "@/@core/helpers/common-api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { useState } from "react";
 
 const validationSchema = Yup.object().shape({
   first_name: Yup.string()
@@ -52,15 +52,15 @@ const SignUp = (): JSX.Element => {
     try {
       setLoading(true);
       const response = await apiPost("/register", data);
-      if (response?.data?.status >= 200) {
+      if (response?.status >= 200) {
         toast.success("Registration Successful");
         router.push("/login");
         setLoading(false);
       }
     } catch (errors: any) {
       console.error("errors", errors);
+      toast.error(errors?.message || "Something went wrong");
       setLoading(false);
-      toast.error(errors?.response?.data?.message || "Something went wrong");
     }
   };
 

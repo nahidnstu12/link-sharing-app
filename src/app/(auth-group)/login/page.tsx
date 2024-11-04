@@ -8,10 +8,10 @@ import Input from "@/@core/components/common/Input";
 import { apiPost } from "@/@core/helpers/common-api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { useState } from "react";
 
 /**
  * The Login component renders a login form where users can enter their email and password to access their account.
@@ -39,18 +39,19 @@ const Login = (): JSX.Element => {
   const onSubmit = async (data: any) => {
     console.log("Form data:", data);
     try {
-       setLoading(true);
+      setLoading(true);
       const resposne = await apiPost("/login", data);
-
-      if (resposne?.data?.status == 200) {
+      
+      
+      if (resposne?.status == 200) {
         toast.success("Login Successful");
         setLoading(false);
         router.push("/home");
       }
     } catch (errors: any) {
-      console.error("login errors", errors?.response?.data?.message);
+      console.error("login errors", errors?.message);
       setLoading(false);
-      toast.error(errors?.response?.data?.message || "Something went wrong");
+      toast.error(errors?.message || "Something went wrong");
     }
   };
 

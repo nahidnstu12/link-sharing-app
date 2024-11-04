@@ -1,52 +1,49 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import axiosInstance from "../lib/axios";
+// apiClient.ts
 
-/** Axios catch block handler */
-const errorHandler = (error: {
-  response: any;
-  request?: any;
-  message?: any;
-}) => {
-  throw error;
-};
+import fetchApi, { FetchOptions } from "../lib/fetch";
 
-function apiGet<T = any>(
+async function apiGet<T = any>(
   apiPath: string,
-  config: AxiosRequestConfig = {}
-): Promise<AxiosResponse<any>> {
-  return axiosInstance
-    .get(apiPath, config)
-    .then((response: AxiosResponse<T>) => response)
-    .catch(errorHandler);
+  options: FetchOptions = {}
+): Promise<T> {
+  return fetchApi<T>(apiPath, {
+    ...options,
+    method: "GET",
+  });
 }
 
-function apiPost<R = any, T = any>(
+async function apiPost<R = any, T = any>(
   apiPath: string,
   data?: R,
-  config: AxiosRequestConfig = {}
-) {
-  return axiosInstance
-    .post(apiPath, data, config)
-    .then((response: AxiosResponse<T>) => response)
-    .catch(errorHandler);
+  options: FetchOptions = {}
+): Promise<T> {
+  return fetchApi<T>(apiPath, {
+    ...options,
+    method: "POST",
+    body: JSON.stringify(data),
+  });
 }
 
-function apiDelete<T = any>(apiPath: string) {
-  return axiosInstance
-    .delete(apiPath)
-    .then((response: AxiosResponse<T>) => response)
-    .catch(errorHandler);
-}
-
-function apiPut<R = any, T = any>(
+async function apiPut<R = any, T = any>(
   apiPath: string,
   data?: R,
-  config: AxiosRequestConfig = {}
-) {
-  return axiosInstance
-    .put(apiPath, data)
-    .then((response: AxiosResponse<T>) => response)
-    .catch(errorHandler);
+  options: FetchOptions = {}
+): Promise<T> {
+  return fetchApi<T>(apiPath, {
+    ...options,
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
 }
 
-export { apiDelete, apiGet, apiPost, apiPut };
+async function apiDelete<T = any>(
+  apiPath: string,
+  options: FetchOptions = {}
+): Promise<T> {
+  return fetchApi<T>(apiPath, {
+    ...options,
+    method: "DELETE",
+  });
+}
+
+export { apiGet, apiPost, apiPut, apiDelete };

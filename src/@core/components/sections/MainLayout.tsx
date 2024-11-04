@@ -5,7 +5,7 @@ import Banner from "./Banner";
 /**
  * MainLayout provides the main structure of the application, including the Banner, content section, and Modal.
  */
-
+console.log("LOAD: MainLaout");
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }: {

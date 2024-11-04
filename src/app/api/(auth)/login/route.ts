@@ -28,12 +28,7 @@ export const POST = async (request: NextRequest) => {
       sameSite: "strict",
     });
 
-    // response.cookies.set("userId", user.data?.userId, {
-    //   httpOnly: false,
-    //   secure: true,
-    //   path: "/",
-    //   sameSite: "strict",
-    // });
+    
 
     return response;
   } catch (error: any) {
