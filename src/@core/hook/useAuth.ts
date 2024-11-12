@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { apiGet } from "../helpers/common-api-v2";
+import { apiGet } from "../helpers/common-api";
 
 /**
  * Custom hook to handle authentication and logout functionality.
