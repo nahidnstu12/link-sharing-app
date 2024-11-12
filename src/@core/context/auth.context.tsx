@@ -9,7 +9,7 @@ import { apiGet, apiPut } from "../helpers/common-api";
 export const AuthContext = createContext<any>(null);
 
 const SUPPORTED_FORMATS = ["image/jpeg", "image/png"];
-const IMAGE_MAX_SIZE = '2MB'
+// const IMAGE_MAX_SIZE = '2MB'
 const validateFile = (file: File) => {
   if (!SUPPORTED_FORMATS.includes(file.type)) {
     alert("Please upload an image in JPG or PNG format.");
@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
+        console.log("hit 2>>profile api");
         const profileApi = await apiGet("/profile");
         setUser(profileApi?.data?.data);
         setIsAuthenticated(!!profileApi?.data?.data?._id);
@@ -37,9 +38,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-
     // Only verify if authentication status is not already set
-    if (isAuthenticated === null|| user === null) {
+    if (isAuthenticated === null || user === null) {
+      console.log("hit 1>>profile api");
 
       verifyAuth();
     }
@@ -50,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   // Function to handle logout
   const handleLogout = useCallback(async () => {
     try {
-       await apiGet("/logout");
+      await apiGet("/logout");
 
       setIsAuthenticated(false);
       setUser(null);

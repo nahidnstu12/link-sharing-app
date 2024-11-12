@@ -7,7 +7,7 @@ const SvgIcon = () => {
       fill="none"
       viewBox="0 0 16 16"
     >
-      <g clip-path="url(#a)">
+      <g clipPath="url(#a)">
         <path
           fill="#ffffff"
           d="M12.25 0h-8.5A3.75 3.75 0 0 0 0 3.75v8.5A3.75 3.75 0 0 0 3.75 16h8.5A3.75 3.75 0 0 0 16 12.25v-8.5A3.75 3.75 0 0 0 12.25 0Z"

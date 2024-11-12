@@ -15,6 +15,7 @@ const useAuth = () => {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
+        console.log("hit 3>>profile api");
         const profileApi = await apiGet("/profile");
         setUser(profileApi?.data?.data);
         setIsAuthenticated(!!profileApi?.data?.data?._id);
@@ -25,6 +26,7 @@ const useAuth = () => {
     };
 
     if (isAuthenticated == null) {
+      console.log("hit 4>>profile api");
       verifyAuth();
     }
   }, [isAuthenticated, router]);

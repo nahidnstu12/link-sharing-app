@@ -2,17 +2,16 @@
 "use client";
 
 import Link from "next/link";
-
 import IconLinkLarge from "@/@core/assets/logo-devlinks-large.tsx";
 import Button from "@/@core/components/common/Button";
 import Input from "@/@core/components/common/Input";
 import { apiPost } from "@/@core/helpers/common-api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { useState } from "react";
 
 const validationSchema = Yup.object().shape({
   first_name: Yup.string()
@@ -51,16 +50,18 @@ const SignUp = (): JSX.Element => {
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
+
       const response = await apiPost("/register", data);
-      if (response?.data?.status >= 200) {
+      if (response?.data?.status >= 200 && response?.data?.status <= 300) {
         toast.success("Registration Successful");
         router.push("/login");
         setLoading(false);
       }
     } catch (errors: any) {
-      console.error("errors", errors);
-      setLoading(false);
+      console.error("errors", errors, errors?.response?.data?.message);
+
       toast.error(errors?.response?.data?.message || "Something went wrong");
+      setLoading(false);
     }
   };
 
